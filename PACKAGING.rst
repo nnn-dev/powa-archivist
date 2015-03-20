@@ -41,14 +41,22 @@ Add powa databse and extension.
 
 .. code-block:: bash
 
-  psql -U postgres -f install_all.sql
-  CREATE DATABASE
-  You are now connected to database "powa" as user "postgres".
-  CREATE EXTENSION
-  CREATE EXTENSION
-  CREATE EXTENSION
-  CREATE EXTENSION
-  CREATE EXTENSION
+ psql -U postgres 
+ Type "help" for help.
+ 
+ postgres=# CREATE DATABASE powa;
+ CREATE DATABASE
+ postgres=# CREATE EXTENSION pg_stat_statements;
+ CREATE EXTENSION
+ postgres=# CREATE EXTENSION btree_gist;
+ CREATE EXTENSION
+ postgres=# CREATE EXTENSION pg_qualstats;
+ CREATE EXTENSION
+ postgres=# CREATE EXTENSION pg_stat_kcache;
+ CREATE EXTENSION
+ postgres=# CREATE EXTENSION powa;
+ CREATE EXTENSION
+ postgres=# \q
 
 5. Install **powa-web** if you want
 
