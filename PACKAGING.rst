@@ -86,10 +86,12 @@ The principe
 Images used to create packages
 ------------------------------
 
-:32bits DOCKER:
- * steeb/debian-32:wheezy
- * toopher/centos-i386:centos6
+:32bits VAGRANT:
+ * puppetlabs/debian-7.8-32-nocm
  
+:32bits DOCKER:
+s * toopher/centos-i386:centos6
+
 :64bits DOCKER:
  * centos:6
  * debian:wheezy
