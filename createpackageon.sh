@@ -75,7 +75,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "$DR/buildscripts", "/buildscripts"
   config.vm.synced_folder "$DR/packages", "/build"
   config.vm.provision "shell" do |s|
-   s.inline = "DOCKERIMAGE='$1' $2 /buildscripts/provision.sh"
+   s.inline = "DOCKERIMAGE='$1' $2 sh /buildscripts/provision.sh"
   end
 end
 _EOF_

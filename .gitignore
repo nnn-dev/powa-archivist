@@ -2,3 +2,5 @@
 *.so
 *.zip
 Vagrantfile
+.vagrant
+build_all_packages.sh

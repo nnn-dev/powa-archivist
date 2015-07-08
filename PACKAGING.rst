@@ -90,7 +90,7 @@ Images used to create packages
  * puppetlabs/debian-7.8-32-nocm
  
 :32bits DOCKER:
-s * toopher/centos-i386:centos6
+ * toopher/centos-i386:centos6
 
 :64bits DOCKER:
  * centos:6
