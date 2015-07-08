@@ -8,7 +8,7 @@ pgversion='9.4'
 # . pg_qualstats
 pg_qualstats_source='https://github.com/dalibo/pg_qualstats/archive/0.0.6.zip'
 pg_qualstats_name="postgresql-${pgversion}-pg-qualstats"
-pg_qualstats_version='0.0.4'
+pg_qualstats_version='0.0.6'
 # . pg_stat_kcache
 pg_stat_kcache_source='https://github.com/dalibo/pg_stat_kcache/archive/REL2_0_2.zip' 
 pg_stat_kcache_name="postgresql-${pgversion}-pg-stat-kcache"
@@ -17,7 +17,7 @@ pg_stat_kcache_version="2.0.2"
 #pg_powa_archivist_source='https://github.com/dalibo/powa-archivist/archive/REL_2_0_0.zip'
 pg_powa_archivist_source='https://github.com/dalibo/powa-archivist/archive/master.zip'
 pg_powa_archivist_name="postgresql-${pgversion}-powa-archivist"
-pg_powa_archivist_version="2.0.1.$(date +%s)"
+pg_powa_archivist_version="2.0.1-$(date +%Y%m%d)master"
 
 # Download a file from url
 # $1 = source
