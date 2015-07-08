@@ -17,7 +17,7 @@ pg_stat_kcache_version="2.0.2"
 #pg_powa_archivist_source='https://github.com/dalibo/powa-archivist/archive/REL_2_0_0.zip'
 pg_powa_archivist_source='https://github.com/dalibo/powa-archivist/archive/master.zip'
 pg_powa_archivist_name="postgresql-${pgversion}-powa-archivist"
-pg_powa_archivist_version="2.0.1-$(date +%Y%m%d)master"
+pg_powa_archivist_version="2.0.1-$(date +%Y%m%d%H%M%S)master"
 
 # Download a file from url
 # $1 = source
@@ -107,7 +107,13 @@ build()
    echo "Error no file installed" >&2
    return 1
   fi
-  fpm -f -s dir -t $type -n ${pkgname} -v ${pkgversion} --iteration "$(date +%s)" -C ${workdir}/${name}-rootfs -m "--maintainer=${MAINTAINER}" "$@"
+  version=$(echo ${pkgversion} | cut -f1 -d'-')
+  iteration=$(echo ${pkgversion} | cut -f2 -d'-')
+  if [ -n "$iteration" ]; then
+   fpm -f -s dir -t $type -n ${pkgname} -v ${version} --iteration "${iteration}" -C ${workdir}/${name}-rootfs -m "--maintainer=${MAINTAINER}" "$@"
+  else
+   fpm -f -s dir -t $type -n ${pkgname} -v ${version} -C ${workdir}/${name}-rootfs -m "--maintainer=${MAINTAINER}" "$@"
+  fi
   if is_redhat; then
    cp *.rpm ${destdir}/
   else
