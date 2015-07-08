@@ -1,2 +1,4 @@
 *.sh -crlf
 *.sh text eol=lf
+*.rpm binary
+*.deb binary
