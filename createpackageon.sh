@@ -22,6 +22,12 @@ _EOF_
 
 executedocker()
 {
+ # cannot launch directly on windows
+ if uname -a | grep -q '^MINGW32'; then
+  echo 'Cannot launch directly on windows' >&2
+  echo 'If you use boot2docker, use boot2docker ssh' >&2
+  return 123
+ fi
  keep=$3
  name=buildpowa2_$(echo $0$1 | md5sum | cut -f1 -d' ')
  # Remove old
@@ -29,13 +35,13 @@ executedocker()
 	docker rm -f $name
  fi	
  # Build packages
- docker run $DOCKER_OPTS -d -t --name=$name -v $D/packages:/build -v $D/buildscripts:/buildscripts -e MAINTAINER=$M -e DOCKERIMAGE=$1 $1 /bin/bash
+ docker run $DOCKER_OPTS -d -t --name=$name -v $DR/packages:/build -v $DR/buildscripts:/buildscripts -e MAINTAINER=$M -e DOCKERIMAGE=$1 $1 /bin/bash
  docker exec -t $name  $2 /buildscripts/provision.sh
  [ "$?" -ne '0' ] && exit $(fatal $name)
  docker stop ${name}
  docker rm ${name}
  # Test packages
- docker run $DOCKER_OPTS -d -t -p 8888 -P --name=$name -v $D/packages:/build -v $D/buildscripts:/buildscripts -e MAINTAINER=$M -e DOCKERIMAGE=$1 $1 /bin/bash
+ docker run $DOCKER_OPTS -d -t -p 8888 -P --name=$name -v $DR/packages:/build -v $DR/buildscripts:/buildscripts -e MAINTAINER=$M -e DOCKERIMAGE=$1 $1 /bin/bash
  docker exec -t $name  $2 /buildscripts/provision.sh --test
  [ "$?" -ne '0' ] && exit $(fatal $name)
  if [ "$keep" -ne '1' ]; then
@@ -52,13 +58,6 @@ name=$(echo $1 | md5sum | cut -f1 -d' ')
 type='box'
 if $(echo $1 | grep -q '^https:|^http:'); then
  type='box_url'
-fi
-
-# on windows get real path
-if uname -a | grep -q '^MINGW32'; then
- DR=$(cd $D; pwd -W)
-else
- DR=$D
 fi
 
 #Remove old
@@ -138,6 +137,12 @@ while [ "$#" -gt '0' ]; do
 done
 # Absolute dir name
 D=$(cd $(dirname $0);pwd -P)
+# on windows get real path
+if uname -a | grep -q '^MINGW32'; then
+ DR=$(cd $D; pwd -W)
+else
+ DR=$D
+fi
 # Maintainer email from git config
 unset M
 [ -n "$(git config user.email)" ] && M="$(git config user.email)"
