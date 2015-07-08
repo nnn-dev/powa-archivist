@@ -107,7 +107,7 @@ build()
    echo "Error no file installed" >&2
    return 1
   fi
-  fpm -f -s dir -t $type -n ${pkgname} -v ${pkgversion} -C ${workdir}/${name}-rootfs -m "--maintainer=${MAINTAINER}" "$@"
+  fpm -f -s dir -t $type -n ${pkgname} -v ${pkgversion} --iteration "$(date +%s)" -C ${workdir}/${name}-rootfs -m "--maintainer=${MAINTAINER}" "$@"
   if is_redhat; then
    cp *.rpm ${destdir}/
   else
