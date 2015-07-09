@@ -94,7 +94,9 @@ Images used to create packages
 
 :64bits DOCKER:
  * centos:6
+ * centos:7
  * debian:wheezy
+ * debian:jessie
  * ubuntu:14.04.2
  
 How to make others packages
